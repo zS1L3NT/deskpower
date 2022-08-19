@@ -23,28 +23,30 @@ void loop()
 {
   if (WiFi.status() == WL_CONNECTED)
   {
-    http.begin(wifi, "http://desktop-power.herokuapp.com/");
+    http.begin(wifi, "https://desktop-power.herokuapp.com/");
     if (http.GET() == 200)
     {
       String state = http.getString();
       if (state == "tap")
       {
-        http.POST("");
+        Serial.println(millis() + ": Tap");
         digitalWrite(D0, LOW);
         digitalWrite(D1, HIGH);
         delay(500);
         digitalWrite(D0, HIGH);
         digitalWrite(D1, LOW);
+        http.POST("");
       }
 
       if (state == "hold")
       {
-        http.POST("");
+        Serial.println(millis() + ": Hold");
         digitalWrite(D0, LOW);
         digitalWrite(D1, HIGH);
         delay(3000);
         digitalWrite(D0, HIGH);
         digitalWrite(D1, LOW);
+        http.POST("");
       }
     }
   }
