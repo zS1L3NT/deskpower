@@ -12,7 +12,7 @@ app.use(express.json())
 let state = "off"
 
 app.use((req, res, next) => {
-	const accessKey = req.headers.authorization?.slice("Bearer ".length)
+	const accessKey = req.headers.authorization?.slice("Bearer ".length).trim()
 
 	if (accessKey === process.env.ACCESS_KEY) {
 		next()

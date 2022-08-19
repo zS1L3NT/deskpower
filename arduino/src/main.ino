@@ -1,6 +1,7 @@
 #include "env.h"
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
+#include <string>
 
 #define D0 16
 #define D1 5
@@ -28,7 +29,11 @@ void setup()
   Serial.println("Connected to WiFi");
 
   http.begin(wifi, "http://desktop-power.herokuapp.com/");
-  http.addHeader("Authorization", "Bearer " + *ACCESS_KEY);
+
+  char *authorization = new char[strlen(ACCESS_KEY) + 8];
+  strcpy(authorization, "Bearer ");
+  strcat(authorization, ACCESS_KEY);
+  http.addHeader("Authorization", authorization);
 }
 
 void loop()
