@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:desktop_power/env.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -24,7 +25,12 @@ class _AppState extends State<App> {
 
   void refresh() async {
     try {
-      final response = await get(Uri.parse("http://desktop-power.herokuapp.com/"));
+      final response = await get(
+        Uri.parse("http://desktop-power.herokuapp.com/"),
+        headers: {
+          "Authorization": "Bearer $ACCESS_KEY",
+        },
+      );
 
       if (response.statusCode == 200 && response.body != state) {
         if (dirty) {
@@ -54,6 +60,7 @@ class _AppState extends State<App> {
       final response = await put(
         Uri.parse("http://desktop-power.herokuapp.com/"),
         headers: {
+          "Authorization": "Bearer $ACCESS_KEY",
           "Content-Type": "application/json",
         },
         body: jsonEncode({

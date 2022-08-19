@@ -1,3 +1,4 @@
+#include "env.h"
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
@@ -17,7 +18,7 @@ void setup()
   digitalWrite(D1, LOW);
 
   Serial.println("Connecting to WiFi");
-  WiFi.begin("zS1L3NT", "leejieun");
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -25,11 +26,13 @@ void setup()
   }
 
   Serial.println("Connected to WiFi");
+
+  http.begin(wifi, "http://desktop-power.herokuapp.com/");
+  http.addHeader("Authorization", "Bearer " + *ACCESS_KEY);
 }
 
 void loop()
 {
-  http.begin(wifi, "http://desktop-power.herokuapp.com/");
   if (http.GET() == 200)
   {
     String state = http.getString();
