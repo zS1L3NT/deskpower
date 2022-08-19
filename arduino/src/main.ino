@@ -2,6 +2,7 @@
 #include <ESP8266HTTPClient.h>
 
 #define D0 16
+#define D1 5
 
 HTTPClient http;
 WiFiClient wifi;
@@ -11,7 +12,9 @@ void setup()
   Serial.begin(9600);
 
   pinMode(D0, OUTPUT);
+  pinMode(D1, OUTPUT);
   digitalWrite(D0, HIGH);
+  digitalWrite(D1, LOW);
 
   WiFi.begin("zS1L3NT", "leejieun");
 }
@@ -28,16 +31,20 @@ void loop()
       {
         http.POST("");
         digitalWrite(D0, LOW);
+        digitalWrite(D1, HIGH);
         delay(500);
         digitalWrite(D0, HIGH);
+        digitalWrite(D1, LOW);
       }
 
       if (state == "hold")
       {
         http.POST("");
         digitalWrite(D0, LOW);
+        digitalWrite(D1, HIGH);
         delay(3000);
         digitalWrite(D0, HIGH);
+        digitalWrite(D1, LOW);
       }
     }
   }
