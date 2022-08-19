@@ -27,7 +27,7 @@ void loop()
     if (http.GET() == 200)
     {
       String state = http.getString();
-      if (state == "single")
+      if (state == "tap")
       {
         http.POST("");
         digitalWrite(D0, LOW);
