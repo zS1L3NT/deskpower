@@ -16,38 +16,43 @@ void setup()
   digitalWrite(D0, HIGH);
   digitalWrite(D1, LOW);
 
+  Serial.println("Connecting to WiFi");
   WiFi.begin("zS1L3NT", "leejieun");
+
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+  }
+
+  Serial.println("Connected to WiFi");
 }
 
 void loop()
 {
-  if (WiFi.status() == WL_CONNECTED)
+  http.begin(wifi, "https://desktop-power.herokuapp.com/");
+  if (http.GET() == 200)
   {
-    http.begin(wifi, "https://desktop-power.herokuapp.com/");
-    if (http.GET() == 200)
+    String state = http.getString();
+    if (state == "tap")
     {
-      String state = http.getString();
-      if (state == "tap")
-      {
-        Serial.println(millis() + ": Tap");
-        digitalWrite(D0, LOW);
-        digitalWrite(D1, HIGH);
-        delay(500);
-        digitalWrite(D0, HIGH);
-        digitalWrite(D1, LOW);
-        http.POST("");
-      }
+      Serial.println(millis() + ": Tap");
+      digitalWrite(D0, LOW);
+      digitalWrite(D1, HIGH);
+      delay(500);
+      digitalWrite(D0, HIGH);
+      digitalWrite(D1, LOW);
+      http.POST("");
+    }
 
-      if (state == "hold")
-      {
-        Serial.println(millis() + ": Hold");
-        digitalWrite(D0, LOW);
-        digitalWrite(D1, HIGH);
-        delay(3000);
-        digitalWrite(D0, HIGH);
-        digitalWrite(D1, LOW);
-        http.POST("");
-      }
+    if (state == "hold")
+    {
+      Serial.println(millis() + ": Hold");
+      digitalWrite(D0, LOW);
+      digitalWrite(D1, HIGH);
+      delay(3000);
+      digitalWrite(D0, HIGH);
+      digitalWrite(D1, LOW);
+      http.POST("");
     }
   }
   delay(1000);
