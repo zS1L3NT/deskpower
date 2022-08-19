@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 	if (accessKey === process.env.ACCESS_KEY) {
 		next()
 	} else {
-		res.status(400).send("Invalid access key")
+		res.status(403).send("Invalid access key")
 	}
 })
 
