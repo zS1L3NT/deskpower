@@ -8,6 +8,7 @@
 
 HTTPClient http;
 WiFiClient wifi;
+char *authorization = new char[strlen(ACCESS_KEY) + 8];
 
 void setup()
 {
@@ -30,14 +31,13 @@ void setup()
 
   http.begin(wifi, "http://desktop-power.herokuapp.com/");
 
-  char *authorization = new char[strlen(ACCESS_KEY) + 8];
   strcpy(authorization, "Bearer ");
   strcat(authorization, ACCESS_KEY);
-  http.addHeader("Authorization", authorization);
 }
 
 void loop()
 {
+  http.addHeader("Authorization", authorization);
   if (http.GET() == 200)
   {
     String state = http.getString();
@@ -49,6 +49,8 @@ void loop()
       delay(500);
       digitalWrite(D0, HIGH);
       digitalWrite(D1, LOW);
+
+      http.addHeader("Authorization", authorization);
       http.POST("");
     }
 
@@ -60,6 +62,8 @@ void loop()
       delay(3000);
       digitalWrite(D0, HIGH);
       digitalWrite(D1, LOW);
+
+      http.addHeader("Authorization", authorization);
       http.POST("");
     }
   }
