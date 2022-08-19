@@ -13,6 +13,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   String? state;
+  bool dirty = false;
 
   @override
   void initState() {
@@ -26,9 +27,15 @@ class _AppState extends State<App> {
       final response = await get(Uri.parse("http://desktop-power.herokuapp.com/"));
 
       if (response.statusCode == 200 && response.body != state) {
-        setState(() {
-          state = response.body;
-        });
+        if (dirty) {
+          setState(() {
+            dirty = false;
+          });
+        } else {
+          setState(() {
+            state = response.body;
+          });
+        }
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -39,6 +46,7 @@ class _AppState extends State<App> {
 
   void update(String state) async {
     setState(() {
+      dirty = true;
       this.state = state;
     });
 
