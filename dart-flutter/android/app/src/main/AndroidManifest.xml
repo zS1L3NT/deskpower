@@ -2,7 +2,7 @@
     package="com.example.desktop_power">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="desktop_power"
+        android:label="Desktop Power"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
