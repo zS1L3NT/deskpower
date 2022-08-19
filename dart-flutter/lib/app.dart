@@ -23,7 +23,7 @@ class _AppState extends State<App> {
 
   void refresh() async {
     try {
-      final response = await get(Uri.parse("http://desktop-power.herokuapp.com"));
+      final response = await get(Uri.parse("http://desktop-power.herokuapp.com/"));
 
       if (response.statusCode == 200 && response.body != state) {
         setState(() {
@@ -44,7 +44,7 @@ class _AppState extends State<App> {
 
     try {
       final response = await put(
-        Uri.parse("http://desktop-power.herokuapp.com"),
+        Uri.parse("http://desktop-power.herokuapp.com/"),
         headers: {
           "Content-Type": "application/json",
         },
