@@ -26,7 +26,7 @@ class _AppState extends State<App> {
   void refresh() async {
     try {
       final response = await get(
-        Uri.parse("http://desktop-power.herokuapp.com/"),
+        Uri.parse("http://desktop-power.zectan.com/"),
         headers: {
           "Authorization": "Bearer $ACCESS_KEY",
         },
@@ -58,7 +58,7 @@ class _AppState extends State<App> {
 
     try {
       final response = await put(
-        Uri.parse("http://desktop-power.herokuapp.com/"),
+        Uri.parse("http://desktop-power.zectan.com/"),
         headers: {
           "Authorization": "Bearer $ACCESS_KEY",
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ class _AppState extends State<App> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text("Error"),
+              title: Text("Status Error: ${response.statusCode}"),
               content: Text(response.body.toString()),
             );
           },
@@ -84,7 +84,7 @@ class _AppState extends State<App> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Error"),
+            title: const Text("HTTP Error"),
             content: Text(e.toString()),
           );
         },

@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    MaterialApp(
+    const MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
       title: "Desktop Power",
-      home: const App(),
+      home: App(),
     ),
   );
 }
