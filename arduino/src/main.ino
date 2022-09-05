@@ -29,7 +29,7 @@ void setup()
 
   Serial.println("Connected to WiFi");
 
-  http.begin(wifi, "http://desktop-power.herokuapp.com/");
+  http.begin(wifi, "http://desktop-power.zectan.com/");
 
   strcpy(authorization, "Bearer ");
   strcat(authorization, ACCESS_KEY);
