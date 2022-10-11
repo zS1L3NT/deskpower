@@ -14,7 +14,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  static const URL = "http://desktop-power.loca.lt/flutter";
+  static const URL = "http://desktop-power.zectan.com/flutter";
 
   DateTime? lastOnline;
   DateTime? lastSignal;

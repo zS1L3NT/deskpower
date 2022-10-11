@@ -45,7 +45,7 @@ void setup()
 
   Serial.println("Connected to WiFi");
 
-  http.begin(wifi, "http://desktop-power.loca.lt/arduino");
+  http.begin(wifi, "http://desktop-power.zectan.com/arduino");
 
   strcpy(authorization, "Bearer ");
   strcat(authorization, ACCESS_KEY);
