@@ -19,6 +19,7 @@ class _AppState extends State<App> {
   DateTime? lastOnline;
   DateTime? lastSignal;
   bool? state;
+  List<String>? error;
   bool dirty = false;
 
   @override
@@ -26,6 +27,15 @@ class _AppState extends State<App> {
     super.initState();
 
     refresh();
+  }
+
+  void setError(String title, String message) {
+    setState(() {
+      error = [title, message];
+      lastOnline = null;
+      lastSignal = null;
+      state = null;
+    });
   }
 
   void refresh() async {
@@ -40,14 +50,17 @@ class _AppState extends State<App> {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         setState(() {
-          dirty = false;
           lastOnline = DateTime.parse(data["lastOnline"]);
           lastSignal = DateTime.parse(data["lastSignal"]);
           state = data["state"];
+          error = null;
+          dirty = false;
         });
+      } else {
+        setError("Status Error: ${response.statusCode}", response.body.toString());
       }
     } catch (e) {
-      debugPrint(e.toString());
+      setError("HTTP Error", e.toString());
     }
 
     Future.delayed(const Duration(seconds: 1), refresh);
@@ -68,26 +81,10 @@ class _AppState extends State<App> {
       );
 
       if (response.statusCode != 200) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text("Status Error: ${response.statusCode}"),
-              content: Text(response.body.toString()),
-            );
-          },
-        );
+        setError("Status Error: ${response.statusCode}", response.body.toString());
       }
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("HTTP Error"),
-            content: Text(e.toString()),
-          );
-        },
-      );
+      setError("HTTP Error", e.toString());
     }
   }
 
@@ -143,10 +140,22 @@ class _AppState extends State<App> {
                         color: Colors.grey,
                       ),
                     ),
-              title: const Text("Current State"),
-              subtitle: Text(state?.toString() ?? "Loading..."),
+              title: const Text("Signal State"),
+              subtitle: Text(state != null
+                  ? state!
+                      ? "Detected"
+                      : "None"
+                  : "Loading..."),
             ),
           ),
+          if (error != null)
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.warning),
+                title: Text(error![0]),
+                subtitle: Text(error![1]),
+              ),
+            ),
           ElevatedButton(
             onPressed: state == false && !dirty ? signal : null,
             child: const Text("Send Signal"),
