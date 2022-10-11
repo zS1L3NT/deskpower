@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:desktop_power/env.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -13,7 +14,11 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  String? state;
+  static const URL = "http://desktop-power.loca.lt/flutter";
+
+  DateTime? lastOnline;
+  DateTime? lastSignal;
+  bool? state;
   bool dirty = false;
 
   @override
@@ -26,22 +31,20 @@ class _AppState extends State<App> {
   void refresh() async {
     try {
       final response = await get(
-        Uri.parse("http://desktop-power.zectan.com/"),
+        Uri.parse("$URL/status"),
         headers: {
           "Authorization": "Bearer $ACCESS_KEY",
         },
       );
 
-      if (response.statusCode == 200 && response.body != state) {
-        if (dirty) {
-          setState(() {
-            dirty = false;
-          });
-        } else {
-          setState(() {
-            state = response.body;
-          });
-        }
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        setState(() {
+          dirty = false;
+          lastOnline = DateTime.parse(data["lastOnline"]);
+          lastSignal = DateTime.parse(data["lastSignal"]);
+          state = data["state"];
+        });
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -50,22 +53,18 @@ class _AppState extends State<App> {
     Future.delayed(const Duration(seconds: 1), refresh);
   }
 
-  void update(String state) async {
+  void signal() async {
     setState(() {
       dirty = true;
-      this.state = state;
+      state = true;
     });
 
     try {
-      final response = await put(
-        Uri.parse("http://desktop-power.zectan.com/"),
+      final response = await post(
+        Uri.parse("$URL/signal"),
         headers: {
           "Authorization": "Bearer $ACCESS_KEY",
-          "Content-Type": "application/json",
         },
-        body: jsonEncode({
-          "state": state,
-        }),
       );
 
       if (response.statusCode != 200) {
@@ -95,75 +94,64 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {
-                if (state != "tap") {
-                  update("tap");
-                }
-              },
-              child: Container(
-                width: 160,
-                height: 160,
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(80),
-                  boxShadow: [
-                    if (state != "tap")
-                      BoxShadow(
-                        color: Colors.grey.shade300,
-                        blurRadius: 10,
-                        spreadRadius: 2,
+      appBar: AppBar(
+        title: const Text("Desktop Power"),
+      ),
+      body: Column(
+        children: [
+          Card(
+            child: ListTile(
+              leading: lastOnline != null
+                  ? const Icon(Icons.timer)
+                  : const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.grey,
                       ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    "Tap",
-                    style: TextStyle(
-                      color: state == "tap" ? Colors.grey.shade300 : Colors.grey.shade800,
                     ),
-                  ),
-                ),
-              ),
+              title: const Text("Last Seen Online"),
+              subtitle: Text(lastOnline != null ? timeago.format(lastOnline!) : "Loading..."),
             ),
-            const SizedBox(height: 40),
-            GestureDetector(
-              onTap: () {
-                if (state != "hold") {
-                  update("hold");
-                }
-              },
-              child: Container(
-                width: 160,
-                height: 160,
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(80),
-                  boxShadow: [
-                    if (state != "hold")
-                      BoxShadow(
-                        color: Colors.grey.shade300,
-                        blurRadius: 10,
-                        spreadRadius: 2,
+          ),
+          Card(
+            child: ListTile(
+              leading: lastSignal != null
+                  ? const Icon(Icons.timer)
+                  : const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.grey,
                       ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    "Hold",
-                    style: TextStyle(
-                      color: state == "hold" ? Colors.grey.shade300 : Colors.grey.shade800,
                     ),
-                  ),
-                ),
-              ),
+              title: const Text("Last Response Signal"),
+              subtitle: Text(lastSignal != null ? timeago.format(lastSignal!) : "Loading..."),
             ),
-          ],
-        ),
+          ),
+          Card(
+            child: ListTile(
+              leading: lastSignal != null
+                  ? const Icon(Icons.check)
+                  : const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.grey,
+                      ),
+                    ),
+              title: const Text("Current State"),
+              subtitle: Text(state?.toString() ?? "Loading..."),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: state == false && !dirty ? signal : null,
+            child: const Text("Send Signal"),
+          ),
+        ],
       ),
     );
   }

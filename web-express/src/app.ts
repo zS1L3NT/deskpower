@@ -9,7 +9,9 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-let state = "off"
+let lastOnline = new Date(0)
+let lastSignal = new Date(0)
+let state = false
 
 app.use((req, res, next) => {
 	const accessKey = req.headers.authorization?.slice("Bearer ".length).trim()
@@ -21,17 +23,28 @@ app.use((req, res, next) => {
 	}
 })
 
-app.get("/", (req, res) => {
-	res.send(state)
+app.get("/flutter/status", (req, res) => {
+	res.json({
+		lastOnline,
+		lastSignal,
+		state
+	})
 })
 
-app.put("/", (req, res) => {
-	state = req.body.state
+app.post("/flutter/signal", (req, res) => {
+	state = true
 	res.end()
 })
 
-app.post("/", (req, res) => {
-	state = "off"
+app.get("/arduino", (req, res) => {
+	lastOnline = new Date()
+	res.send(state)
+})
+
+app.post("/arduino", (req, res) => {
+	lastOnline = new Date()
+	lastSignal = new Date()
+	state = false
 	res.end()
 })
 
