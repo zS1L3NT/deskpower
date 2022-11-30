@@ -1,6 +1,6 @@
-# Desktop Power
+# DeskPower
 
-![License](https://img.shields.io/github/license/zS1L3NT/desktop-power?style=for-the-badge) ![Languages](https://img.shields.io/github/languages/count/zS1L3NT/desktop-power?style=for-the-badge) ![Top Language](https://img.shields.io/github/languages/top/zS1L3NT/desktop-power?style=for-the-badge) ![Commit Activity](https://img.shields.io/github/commit-activity/y/zS1L3NT/desktop-power?style=for-the-badge) ![Last commit](https://img.shields.io/github/last-commit/zS1L3NT/desktop-power?style=for-the-badge)
+![License](https://img.shields.io/github/license/zS1L3NT/deskpower?style=for-the-badge) ![Languages](https://img.shields.io/github/languages/count/zS1L3NT/deskpower?style=for-the-badge) ![Top Language](https://img.shields.io/github/languages/top/zS1L3NT/deskpower?style=for-the-badge) ![Commit Activity](https://img.shields.io/github/commit-activity/y/zS1L3NT/deskpower?style=for-the-badge) ![Last commit](https://img.shields.io/github/last-commit/zS1L3NT/deskpower?style=for-the-badge)
 
 This is a monorepository consisting of an Arduino script, Express server and Flutter application. The express server is the middleman to help the Flutter app and Arduino board communicate. This project was built so that I can turn my desktop on from anywhere outside the house.
 
@@ -19,5 +19,18 @@ I keep forgetting to turn my desktop on at home when I leave for school, and som
 -   Arduino
     -   ESP8266 WiFi
     -   ESP8266 HTTP Client
--  TypeScript & Express
--  Flutter
+-   NodeJS
+    -   TypeScript
+        -   [![@types/cors](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/dev/@types/cors?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/@types/cors)
+        -   [![@types/express](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/dev/@types/express?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/@types/express)
+        -   [![@types/node](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/dev/@types/node?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/@types/node)
+        -   [![ts-node](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/dev/ts-node?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/ts-node)
+        -   [![typescript](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/dev/typescript?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/typescript)
+    -   Express
+        -   [![cors](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/cors?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/cors)
+        -   [![dotenv](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/dotenv?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/dotenv)
+        -   [![express](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/express?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/express)
+-   Flutter
+    -   Miscellaneous
+        -   [![http](https://img.shields.io/badge/http-%5E0.13.5-blue?style=flat-square)](https://pub.dev/packages/http)
+        -   [![timeago](https://img.shields.io/badge/timeago-%5E3.3.0-blue?style=flat-square)](https://pub.dev/packages/timeago)

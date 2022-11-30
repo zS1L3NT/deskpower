@@ -1,4 +1,4 @@
-package com.example.desktop_power
+package com.zectan.deskpower
 
 import io.flutter.embedding.android.FlutterActivity
 

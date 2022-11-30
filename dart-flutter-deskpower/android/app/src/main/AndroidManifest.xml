@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.desktop_power">
+    package="com.zectan.deskpower">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="Desktop Power"
+        android:label="DeskPower"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

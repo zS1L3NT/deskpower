@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:desktop_power/env.dart';
+import 'package:deskpower/env.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -14,7 +14,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  static const URL = "http://desktop-power.zectan.com/flutter";
+  static const URL = "http://deskpower.zectan.com/flutter";
 
   DateTime? lastOnline;
   DateTime? lastSignal;
@@ -92,7 +92,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Desktop Power"),
+        title: const Text("DeskPower"),
       ),
       body: Column(
         children: [

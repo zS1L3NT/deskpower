@@ -1,11 +1,11 @@
-import 'package:desktop_power/app.dart';
+import 'package:deskpower/app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Desktop Power",
+      title: "DeskPower",
       home: App(),
     ),
   );

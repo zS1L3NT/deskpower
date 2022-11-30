@@ -1,6 +1,6 @@
 FROM node:16
 
-WORKDIR /home/web-express-desktop-power
+WORKDIR /home/web-express-deskpower
 
 COPY . .
 
