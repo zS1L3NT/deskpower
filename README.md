@@ -8,6 +8,8 @@ This is a monorepository consisting of an Arduino script, Express server and Flu
 
 I connected two wires to the push button in my computer's power button, then connected the wires to an ESP8266 Module. The ESP8266 Module will provide a LOW signal to one of the wires and ground the other wire, replicating LOW voltage across the button when it is pressed normally. The ESP8266 Module will constantly ask the Express server if the Flutter app has requested to press the button. This is how the Flutter app is able to turn the desktop on from anywhere
 
+![DeskPower Breadboard](https://res.cloudinary.com/zs1l3nt/image/upload/repositories/deskpower/breadboard.jpg)
+
 ## Motivation
 
 I keep forgetting to turn my desktop on at home when I leave for school, and sometimes I need to grab some files on my desktop by AnyDesk. Because AnyDesk allows unattended access to my desktop, all I needed to do was to find a way to physically turn my desktop on. Furthermore, GeekOut 2022 gave us a free ESP8266 Module and I had no use for it before this project.
