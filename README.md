@@ -31,6 +31,9 @@ I keep forgetting to turn my desktop on at home when I leave for school, and som
         -   [![dotenv](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/dotenv?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/dotenv)
         -   [![express](https://img.shields.io/github/package-json/dependency-version/zS1L3NT/deskpower/express?style=flat-square&filename=web-express-deskpower%2Fpackage.json)](https://npmjs.com/package/express)
 -   Flutter
+    -   Icon & Splash
+        -   [![flutter_launcher_icons](https://img.shields.io/badge/flutter__launcher__icons-%5E0.11.0-blue?style=flat-square)](https://pub.dev/packages/flutter_launcher_icons)
+        -   [![flutter_native_splash](https://img.shields.io/badge/flutter__native__splash-%5E2.2.16-blue?style=flat-square)](https://pub.dev/packages/flutter_native_splash)
     -   Miscellaneous
         -   [![http](https://img.shields.io/badge/http-%5E0.13.5-blue?style=flat-square)](https://pub.dev/packages/http)
         -   [![timeago](https://img.shields.io/badge/timeago-%5E3.3.0-blue?style=flat-square)](https://pub.dev/packages/timeago)
