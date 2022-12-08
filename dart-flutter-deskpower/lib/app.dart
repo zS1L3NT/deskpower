@@ -96,6 +96,7 @@ class _AppState extends State<App> {
       ),
       body: Column(
         children: [
+          const SizedBox(height: 4),
           Card(
             child: ListTile(
               leading: lastOnline != null
@@ -156,12 +157,14 @@ class _AppState extends State<App> {
                 subtitle: Text(error![1]),
               ),
             ),
-          ElevatedButton(
-            onPressed: state == false && !dirty ? signal : null,
-            child: const Text("Send Signal"),
-          ),
         ],
       ),
+      floatingActionButton: state == false && !dirty
+          ? FloatingActionButton(
+              onPressed: signal,
+              child: const Icon(Icons.bolt),
+            )
+          : null,
     );
   }
 }

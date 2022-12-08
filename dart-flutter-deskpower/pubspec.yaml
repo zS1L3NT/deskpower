@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.11.0
+  flutter_native_splash: ^2.2.16
   http: ^0.13.5
   timeago: ^3.3.0
 
@@ -19,5 +21,27 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  android: "launcher_icon"
+  image_path: "assets/images/icon-1024x1024.png"
+  adaptive_icon_foreground: "assets/images/adaptive-icon-900x900.png"
+  adaptive_icon_background: "#FFFFFF"
+
+flutter_native_splash:
+  android: true
+  ios: false
+  color: "#FFFFFF"
+  color_dark: "#000000"
+  image: "assets/images/icon-foreground-1024x1024.png"
+  android_12:
+    image: "assets/images/splash-1152x1152.png"
+    color: "#FFFFFF"
+    color_dark: "#000000"
+    icon_background_color: "#FFFFFF"
+    icon_background_color_dark: "#000000"
+
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
