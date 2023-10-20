@@ -1,0 +1,14 @@
+version: 3.8.0
+services:
+    web-express-deskpower:
+        working_dir: /home/web-express-deskpower
+        image: oven/bun
+        container_name: web-express-deskpower
+        ports:
+            - 2783:80
+        volumes:
+            - ./web-express-deskpower:/home/web-express-deskpower
+        command: bun start
+        environment:
+            - PORT=80
+            - ACCESS_KEY=${ACCESS_KEY}
