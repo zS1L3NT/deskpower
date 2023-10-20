@@ -8,7 +8,7 @@ services:
             - 2783:80
         volumes:
             - ./web-express-deskpower:/home/web-express-deskpower
-        command: bun start
+        command: /bin/bash -c "bun i && bun start"
         environment:
             - PORT=80
             - ACCESS_KEY=${ACCESS_KEY}
